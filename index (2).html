@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul — Préparation Oraux</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1f35;
+    --navy2: #162840;
+    --gold: #c9a84c;
+    --gold2: #e8c96a;
+    --white: #f5f0e8;
+    --gray: #8a9ab0;
+    --red: #c0392b;
+    --green: #1a7a4a;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(201,168,76,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(201,168,76,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(26,58,92,0.4) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+  /* HEADER */
+  header {
+    padding: 48px 0 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  h1 span { color: var(--gold); }
+
+  .subtitle {
+    font-size: 15px;
+    color: var(--gray);
+    font-weight: 300;
+    letter-spacing: 0.3px;
+  }
+
+  /* NAV TABS */
+  .nav {
+    display: flex;
+    gap: 4px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 6px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .nav-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    color: var(--gray);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-btn:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+
+  .nav-btn.active {
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  /* SECTIONS */
+  .section { display: none; animation: fadeIn 0.3s ease; }
+  .section.active { display: block; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-title .icon { font-size: 22px; }
+
+  .card p, .card li {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: rgba(245,240,232,0.85);
+    margin-bottom: 8px;
+  }
+
+  .card ul { padding-left: 20px; }
+  .card ul li { margin-bottom: 6px; }
+
+  /* PITCH BOX */
+  .pitch-box {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--white);
+    font-style: italic;
+  }
+
+  .pitch-box strong { color: var(--gold); font-style: normal; }
+
+  /* TAGS */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin: 3px 3px 3px 0;
+  }
+
+  .tag-red { background: rgba(192,57,43,0.2); color: #e74c3c; border: 1px solid rgba(192,57,43,0.3); }
+  .tag-green { background: rgba(26,122,74,0.2); color: #2ecc71; border: 1px solid rgba(26,122,74,0.3); }
+  .tag-gold { background: rgba(201,168,76,0.15); color: var(--gold2); border: 1px solid rgba(201,168,76,0.25); }
+
+  /* QUESTION TRAINER */
+  .question-trainer {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .q-category {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .q-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 3vw, 26px);
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--white);
+    margin-bottom: 28px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .q-controls { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .btn {
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-gold { background: var(--gold); color: var(--navy); }
+  .btn-gold:hover { background: var(--gold2); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--white);
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.06); }
+
+  .btn-red { background: rgba(192,57,43,0.15); border: 1px solid rgba(192,57,43,0.3); color: #e74c3c; }
+  .btn-red:hover { background: rgba(192,57,43,0.25); }
+
+  .q-answer {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    text-align: left;
+    margin-top: 20px;
+    display: none;
+  }
+
+  .q-answer.visible { display: block; animation: fadeIn 0.3s ease; }
+
+  .q-answer h4 {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .q-answer p { font-size: 14px; line-height: 1.7; color: rgba(245,240,232,0.9); }
+
+  /* FILTER PILLS */
+  .filter-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+
+  .pill {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--gray);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .pill:hover { color: var(--white); border-color: rgba(201,168,76,0.4); }
+  .pill.active { background: rgba(201,168,76,0.15); border-color: var(--gold); color: var(--gold2); }
+
+  /* PIEGE ITEMS */
+  .piege-item {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    background: rgba(192,57,43,0.06);
+    border: 1px solid rgba(192,57,43,0.15);
+  }
+
+  .piege-icon { font-size: 24px; flex-shrink: 0; }
+
+  .piege-item h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #e74c3c;
+    margin-bottom: 6px;
+  }
+
+  .piege-item p { font-size: 13.5px; line-height: 1.6; color: rgba(245,240,232,0.75); }
+
+  .piege-item .solution {
+    margin-top: 8px;
+    padding: 10px 14px;
+    background: rgba(26,122,74,0.12);
+    border: 1px solid rgba(26,122,74,0.2);
+    border-radius: 8px;
+    font-size: 13px;
+    color: #2ecc71;
+    line-height: 1.6;
+  }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    margin: 16px 0;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  .q-counter {
+    font-size: 12px;
+    color: var(--gray);
+    text-align: right;
+    margin-bottom: 8px;
+  }
+
+  /* SCHOOL TABS */
+  .school-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+
+  .school-tab {
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--gray);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.3px;
+  }
+
+  .school-tab:hover { color: var(--white); }
+  .school-tab.active { background: var(--navy2); border-color: var(--gold); color: var(--gold2); }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: rgba(26,122,74,0.1);
+    border-left: 3px solid var(--green);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(245,240,232,0.9);
+  }
+
+  .warning {
+    background: rgba(201,168,76,0.08);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(245,240,232,0.9);
+  }
+
+  /* GRID */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 600px) { .grid2 { grid-template-columns: 1fr; } }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 48px 0 32px;
+    color: var(--gray);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+  }
+
+  /* SCORE */
+  .score-display {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .score-item {
+    text-align: center;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 24px;
+    min-width: 100px;
+  }
+
+  .score-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+  }
+
+  .score-label { font-size: 11px; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* CHECKLIST */
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+  }
+
+  .checklist-item:last-child { border-bottom: none; }
+
+  .check-box {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  .checklist-item.checked .check-box {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--navy);
+  }
+
+  .check-text { font-size: 14px; line-height: 1.5; color: rgba(245,240,232,0.85); }
+  .checklist-item.checked .check-text { color: var(--gray); text-decoration: line-through; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="logo">Guide Personnel d'Entraînement</div>
+    <h1>Prépare tes <span>Oraux</span></h1>
+    <p class="subtitle">SESAME · ACCÈS · Catho Lille — Spécial Paul Bouvet</p>
+  </header>
+
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showSection('profil')">👤 Ton Profil</button>
+    <button class="nav-btn" onclick="showSection('pitch')">🎯 Le Pitch</button>
+    <button class="nav-btn" onclick="showSection('questions')">💬 Questions</button>
+    <button class="nav-btn" onclick="showSection('pieges')">⚠️ Pièges</button>
+    <button class="nav-btn" onclick="showSection('ecoles')">🏛️ Les Écoles</button>
+    <button class="nav-btn" onclick="showSection('checklist')">✅ Checklist</button>
+  </nav>
+
+  <!-- PROFIL -->
+  <div class="section active" id="profil">
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🎯</span>Ce que tu es aux yeux du jury</div>
+      <p>Tu n'es pas un lycéen lambda avec de bonnes notes. Tu es un profil rare : <strong style="color:var(--gold)">entrepreneur actif, sportif de haut niveau, expérience dans le luxe</strong>. C'est ça ton identité dans cet oral. Jamais l'oublier.</p>
+      <div class="highlight">
+        Ton concurrent type : bon dossier scolaire, stage d'observation de 2 semaines, aucune réalisation concrète. Toi tu as 750 clients, 150K€ de CA, Vice-Champion de France. Le jury voit ça une fois par session maximum.
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title"><span class="icon">💪</span>Tes Atouts</div>
+        <ul>
+          <li><span class="tag tag-green">FORT</span> 750 clients, CA 150K€ à 17 ans</li>
+          <li><span class="tag tag-green">FORT</span> Vice-Champion de France CCE</li>
+          <li><span class="tag tag-green">FORT</span> Stage Trianon Palace (Michelin)</li>
+          <li><span class="tag tag-green">FORT</span> Stage Kâ-Mondo + Drouot</li>
+          <li><span class="tag tag-green">FORT</span> Bénévolat Apprentis d'Auteuil</li>
+          <li><span class="tag tag-green">FORT</span> Bons résultats concours SESAME</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon">🛡️</span>Points à Gérer</div>
+        <ul>
+          <li><span class="tag tag-red">RISQUE</span> Notes maths faibles au lycée</li>
+          <li><span class="tag tag-red">RISQUE</span> Questions légalité conciergerie</li>
+          <li><span class="tag tag-red">RISQUE</span> "Vous déclarez ce CA ?"</li>
+          <li><span class="tag tag-gold">NEUTRE</span> Absences au lycée en 1ère</li>
+          <li><span class="tag tag-gold">NEUTRE</span> Anglais "courant" non certifié</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🧠</span>Ton Positionnement Stratégique</div>
+      <p>Tu incarnes <strong style="color:var(--gold)">trois dimensions rares</strong> que peu de candidats possèdent simultanément :</p>
+      <div class="divider"></div>
+      <div class="grid2">
+        <div>
+          <p><strong style="color:var(--gold2)">1. L'Entrepreneur</strong></p>
+          <p>Tu as créé une entreprise réelle, avec de vrais clients, un vrai CA. Pas un projet scolaire — une activité qui tourne.</p>
+        </div>
+        <div>
+          <p><strong style="color:var(--gold2)">2. L'Athlète</strong></p>
+          <p>Vice-Champion de France en CCE. Ça montre la discipline, la résilience, la capacité à performer sous pression — exactement ce qu'une école cherche.</p>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <p><strong style="color:var(--gold2)">3. L'Homme de terrain dans le Luxe</strong></p>
+        <p>Trianon Palace Michelin + Kâ-Mondo + Drouot = tu as touché trois univers du luxe français. Cohérence parfaite avec un cursus commerce/gestion orienté haut de gamme.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">📐</span>La Formule Paul</div>
+      <p style="margin-bottom:12px">Retiens cette formule — c'est ton fil rouge :</p>
+      <div class="pitch-box">
+        "Je suis quelqu'un qui <strong>apprend en faisant</strong>. Le cadre scolaire classique m'a donné les bases, mais c'est sur le terrain — dans ma société, dans les brigades étoilées, en compétition — que j'ai vraiment compris ce que signifie l'<strong>exigence</strong> et la <strong>performance</strong>."
+      </div>
+      <div class="warning">Cette formule répond à 80% des questions difficiles. Mémorise-la, décline-la selon le contexte.</div>
+    </div>
+
+  </div>
+
+  <!-- PITCH -->
+  <div class="section" id="pitch">
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🎙️</span>La Structure du Pitch (3 min)</div>
+      <p>Presque tous les oraux commencent par "Présentez-vous" ou "Parlez-moi de votre parcours". C'est <strong style="color:var(--gold)">l'exercice le plus important</strong> — il donne le ton de tout l'entretien.</p>
+      <div class="highlight">Règle d'or : 3 minutes maximum. Pas une seconde de plus. Le jury interrompt au-delà.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">1️⃣</span>Phase 1 — L'Accroche (20 sec)</div>
+      <p style="margin-bottom:12px">Ne commence PAS par "Je m'appelle Paul Bouvet, j'ai 17 ans...". C'est banal. Commence par ce qui te différencie :</p>
+      <div class="pitch-box">
+        "Ce qui me définit le mieux, c'est que depuis mes 16 ans, je gère une société de conciergerie haut de gamme. Pas un projet scolaire — une vraie entreprise, avec de vrais clients, un vrai chiffre d'affaires. C'est ça qui m'a amené devant vous."
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">2️⃣</span>Phase 2 — Le Parcours (60 sec)</div>
+      <p style="margin-bottom:12px">Enchaîne sur tes expériences dans l'ordre logique, pas chronologique :</p>
+      <div class="pitch-box">
+        "Parallèlement à mes études à Saint-Sulpice — spécialités SES et Maths — j'ai construit ce que j'appelle une <strong>culture du service d'exception</strong>. Le stage au Trianon Palace Versailles, étoilé Michelin, m'a appris ce que l'exigence signifie vraiment. Chez Kâ-Mondo, j'ai touché l'univers des enchères, avec 5 inventaires et 3 ventes à Drouot. Et mon engagement chez Apprentis d'Auteuil m'ancre dans une réalité différente."
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">3️⃣</span>Phase 3 — Le Sport (30 sec)</div>
+      <div class="pitch-box">
+        "En parallèle, j'ai pratiqué l'équitation en compétition depuis l'enfance — Vice-Champion de France en Concours Complet. Ce sport m'a enseigné une chose fondamentale : <strong>la préparation rigoureuse est la seule variable que tu contrôles</strong>. Le résultat, tu le subis — la préparation, tu la choisis."
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">4️⃣</span>Phase 4 — La Conclusion (30 sec)</div>
+      <div class="pitch-box">
+        "Si je suis devant vous aujourd'hui, c'est parce que je veux structurer cette énergie entrepreneuriale. Vos formations en gestion et finance me donnent les outils théoriques qui me manquent pour aller plus loin. Je ne viens pas chercher un diplôme — je viens chercher une méthode."
+      </div>
+      <div class="highlight">Cette dernière phrase est puissante. Elle montre que tu as réfléchi à pourquoi cette école, pas juste "j'ai toujours voulu faire une école de commerce".</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🏢</span>Comment Parler de la Conciergerie</div>
+      <p style="margin-bottom:12px">C'est le sujet le plus sensible. Voici exactement comment le formuler :</p>
+      <div class="grid2">
+        <div>
+          <p><span class="tag tag-red">NE DIS PAS</span></p>
+          <ul>
+            <li>"Je revends des billets"</li>
+            <li>"Je fais du ticket scalping"</li>
+            <li>"C'est ma side hustle"</li>
+            <li>"Je savais pas si c'était légal"</li>
+          </ul>
+        </div>
+        <div>
+          <p><span class="tag tag-green">DIS PLUTÔT</span></p>
+          <ul>
+            <li>"Je gère l'accès à des expériences premium"</li>
+            <li>"Service de conciergerie événementielle"</li>
+            <li>"J'ai créé une société structurée"</li>
+            <li>"J'opère dans le respect du cadre légal"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <p style="margin-bottom:8px"><strong style="color:var(--gold)">Si on te demande "c'est légal ?" :</strong></p>
+      <div class="pitch-box">
+        "La conciergerie événementielle est un secteur encadré. Je ne revends pas directement des billets — je fournis un <strong>service d'accès et d'accompagnement</strong> à des événements. C'est la même logique qu'un concierge d'hôtel de luxe qui obtient une table impossible. La valeur ajoutée, c'est le réseau et le service, pas le billet lui-même."
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">💰</span>Comment Parler du CA</div>
+      <p style="margin-bottom:12px">Si on te demande "comment vous atteignez 150K€ ?" — sois précis et naturel :</p>
+      <div class="pitch-box">
+        "Sur 2025, j'ai accompagné 750 clients sur des événements premium — concerts, galas, soirées privées. Mon modèle : je facture un service de conciergerie avec une marge sur l'accès et la logistique. La commission varie entre 15 et 40% selon la rareté et la complexité. 150K€ de CA sur l'année, c'est environ 3-4K€ par semaine en peak season."
+      </div>
+      <div class="warning">Prépare ces chiffres par cœur. Si tu hésites sur ton propre CA, le jury perd confiance immédiatement.</div>
+    </div>
+
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="section" id="questions">
+
+    <div class="score-display">
+      <div class="score-item">
+        <span class="score-num" id="q-current">1</span>
+        <span class="score-label">Question</span>
+      </div>
+      <div class="score-item">
+        <span class="score-num" id="q-total">—</span>
+        <span class="score-label">Total</span>
+      </div>
+      <div class="score-item">
+        <span class="score-num" id="q-seen">0</span>
+        <span class="score-label">Vues</span>
+      </div>
+    </div>
+
+    <div class="filter-pills">
+      <button class="pill active" onclick="filterQuestions('all', this)">Toutes</button>
+      <button class="pill" onclick="filterQuestions('motivation', this)">Motivation</button>
+      <button class="pill" onclick="filterQuestions('societe', this)">Société</button>
+      <button class="pill" onclick="filterQuestions('parcours', this)">Parcours</button>
+      <button class="pill" onclick="filterQuestions('finance', this)">Finance/Gestion</button>
+      <button class="pill" onclick="filterQuestions('pieges', this)">Questions Pièges</button>
+      <button class="pill" onclick="filterQuestions('actu', this)">Actualité</button>
+    </div>
+
+    <div class="question-trainer">
+      <div class="q-category" id="q-cat">MOTIVATION</div>
+      <div class="q-text" id="q-text">"Pourquoi cette école en particulier ?"</div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="q-progress" style="width:0%"></div></div>
+      <div class="q-counter" id="q-counter">Question 1 / 40</div>
+      <div class="q-controls">
+        <button class="btn btn-outline" onclick="showAnswer()">💡 Voir la piste de réponse</button>
+        <button class="btn btn-gold" onclick="nextQuestion()">Question suivante →</button>
+      </div>
+      <div class="q-answer" id="q-answer">
+        <h4>Piste de réponse</h4>
+        <p id="q-answer-text"></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PIÈGES -->
+  <div class="section" id="pieges">
+
+    <div class="card">
+      <div class="card-title"><span class="icon">⚠️</span>Les 10 Pièges Classiques</div>
+      <p>Ces erreurs coûtent des points même aux bons candidats. Mémorise-les.</p>
+    </div>
+
+    <div class="piege-item">
+      <div class="piege-icon">😰</div>
+      <div>
+        <h4>Piège 1 — Parler trop vite sous stress</h4>
+        <p>Le jury voit des dizaines de candidats stressés. Parler vite = manque de préparation et difficulté à structurer.</p>
+        <div class="solution">✅ Solution : impose-toi 2 secondes de silence avant de répondre. Dis "c'est une bonne question, je vais vous répondre en deux points." Le silence te fait paraître réfléchi, pas paniqué.</div>
+      </div>
+    </div>
+
+    <div class="piege-item">
+      <div class="piege-icon">📖</div>
+      <div>
+        <h4>Piège 2 — Réciter le CV</h4>
+        <p>"J'ai fait un stage au Trianon Palace en 2023 où j'ai découvert..." — si tu lis ton CV à voix haute, tu n'apportes rien. Le jury l'a déjà lu.</p>
+        <div class="solution">✅ Solution : parle toujours en termes d'apprentissage et d'impact. "Ce stage m'a appris que l'exigence du détail n'est pas une option dans le luxe — c'est un standard minimum."</div>
+      </div>
+    </div>
+
+    <div class="piege-item">
+      <div class="piege-icon">🏫</div>
+      <div>
+        <h4>Piège 3 — Ne pas connaître l'école</h4>
+        <p>"Pourquoi EM Lyon ?" et tu réponds avec des généralités. Le jury le sent immédiatement.</p>
+        <div class="solution">✅ Solution : prépare 2 faits précis sur chaque école. Pas le classement — le programme, un prof connu, une spécialisation, un partenariat international.</div>
+      </div>
+    </div>
+
+    <div class="piege-item">
+      <div class="piege-icon">😬</div>
+      <div>
+        <h4>Piège 4 — Minimiser les notes faibles</h4>
+        <p>"Oui les maths c'était compliqué mais..." — l'hésitation et la justification défensive font pire que les notes elles-mêmes.</p>
+        <div class="solution">✅ Solution : attaque en premier, frontalement. "Mes notes de maths au lycée ne reflètent pas mes capacités analytiques — mes résultats au concours SESAME le prouvent. J'avais un problème de méthode, pas d'intelligence."</div>
+      </div>
+    </div>
+
+    <div class="piege-item">
+      <div class="piege-icon">💸</div>
+      <div>
+        <h4>Piège 5 — Mal défendre le CA de la conciergerie</h4>
+        <p>Si tu hésites sur tes propres chiffres ou si tu deviens défensif sur la légalité, tu perds toute crédibilité.</p>
+        <div class="solution">✅ Solution : prépare ton modèle économique en 3 phrases. CA, marge, nombre de clients par semaine en peak. Récite-le jusqu'à pouvoir le dire en dormant.</div>
+      </div>
+    </div>
+
+    <div class="piege-item">
+      <div class="piege-icon">🤷</div>
+      <div>
+        <h4>Piège 6 — "Je ne sais pas" sans rebond</h4>
+        <p>On te pose une question d'actualité économique et tu ne connais pas. Dire juste "je ne sais pas" = terminé.</p>
+        <div class="solution">✅ Solution : "Je n'ai pas suivi ce dossier en détail, mais par analogie avec ce que je connais de [sujet proche], je pense que..." Montre que tu penses, même sans la réponse exacte.</div>
+      </div>
+    </div>
+
+    <div class="piege-item">
+      <div class="piege-icon">🎭</div>
+      <div>
+        <h4>Piège 7 — Jouer un personnage</h4>
+        <p>Certains candidats arrivent avec un "costume" — trop formel, trop parfait, trop lisse. Ça sonne faux.</p>
+        <div class="solution">✅ Solution : sois Paul, pas "le candidat idéal". Ton authenticité est ton avantage — un jury préfère quelqu'un de vrai à quelqu'un de parfait.</div>
+      </div>
+    </div>
+
+    <div class="piege-item">
+      <div class="piege-icon">📉</div>
+      <div>
+        <h4>Piège 8 — Projets trop vagues</h4>
+        <p>"Dans 5 ans je veux travailler dans la finance internationale" — vague, générique, oubliable.</p>
+        <div class="solution">✅ Solution : "Dans 5 ans, je veux avoir développé ma société de conciergerie sur 3 marchés européens, avec une équipe de 5 personnes et un partenariat avec au moins un palace parisien. Votre formation en gestion m'y prépare directement."</div>
+      </div>
+    </div>
+
+    <div class="piege-item">
+      <div class="piege-icon">⏱️</div>
+      <div>
+        <h4>Piège 9 — Dépasser le temps de parole</h4>
+        <p>Le jury a un timing. Si tu parles 5 minutes quand on t'en donne 3, tu montres que tu ne sais pas t'adapter.</p>
+        <div class="solution">✅ Solution : entraîne-toi avec un chrono. Le pitch de présentation doit tenir en 3 minutes pile, répétition après répétition.</div>
+      </div>
+    </div>
+
+    <div class="piege-item">
+      <div class="piege-icon">🧊</div>
+      <div>
+        <h4>Piège 10 — Posture fermée / langage corporel faible</h4>
+        <p>Bras croisés, regard qui fuit, voix monocorde. Le contenu peut être excellent — si le non-verbal dit le contraire, le jury ne retient pas le contenu.</p>
+        <div class="solution">✅ Solution : regarde dans les yeux à tour de rôle chaque membre du jury. Mains visibles sur la table. Voix qui monte légèrement sur les mots importants.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ÉCOLES -->
+  <div class="section" id="ecoles">
+
+    <div class="school-tabs">
+      <button class="school-tab active" onclick="showSchool('emlyon', this)">EM Lyon</button>
+      <button class="school-tab" onclick="showSchool('essec', this)">ESSEC</button>
+      <button class="school-tab" onclick="showSchool('skema', this)">SKEMA</button>
+      <button class="school-tab" onclick="showSchool('catho', this)">Catho Lille</button>
+    </div>
+
+    <div id="school-emlyon">
+      <div class="card">
+        <div class="card-title"><span class="icon">🏛️</span>emlyon Business School — Global BBA</div>
+        <p><span class="tag tag-green">FAVORABLE</span> Le profil entrepreneurial est exactement ce qu'ils cherchent.</p>
+        <div class="divider"></div>
+        <p><strong style="color:var(--gold)">Ce qu'ils valorisent :</strong></p>
+        <ul style="margin:10px 0 10px 20px">
+          <li>Profils atypiques avec réalisations concrètes</li>
+          <li>Dimension internationale (programme en anglais)</li>
+          <li>Pédagogie par l'action — "early makers"</li>
+          <li>Engagement et leadership prouvés</li>
+        </ul>
+        <div class="highlight">Pour l'emlyon, insiste sur le fait que tu es déjà un "maker" — quelqu'un qui crée avant même d'étudier.</div>
+        <div class="divider"></div>
+        <p><strong style="color:var(--gold)">Argument clé à placer :</strong></p>
+        <div class="pitch-box">"L'emlyon parle d'early makers — des gens qui agissent avant d'avoir toutes les réponses. C'est exactement ce que j'ai fait à 16 ans en créant ma société sans formation business. Je viens chercher la théorie qui structure ce que j'ai déjà appris sur le terrain."</div>
+        <div class="divider"></div>
+        <p><strong style="color:var(--gold)">Oral format :</strong> Entretien individuel + épreuve d'anglais. Les oraux comptent pour ~50% de l'admission finale.</p>
+      </div>
+    </div>
+
+    <div id="school-essec" style="display:none">
+      <div class="card">
+        <div class="card-title"><span class="icon">🏛️</span>ESSEC Global BBA</div>
+        <p><span class="tag tag-gold">JOUABLE</span> Le plus sélectif — mais ton profil se distingue.</p>
+        <div class="divider"></div>
+        <p><strong style="color:var(--gold)">Ce qu'ils valorisent :</strong></p>
+        <ul style="margin:10px 0 10px 20px">
+          <li>Excellence académique ET personnelle</li>
+          <li>Profils internationaux ambitieux</li>
+          <li>Engagement associatif/sportif de haut niveau</li>
+          <li>Vision claire du projet professionnel</li>
+        </ul>
+        <div class="warning">L'ESSEC va attaquer sur les notes. Prépare ta réponse sur les maths — elle doit être parfaite et confiante.</div>
+        <div class="divider"></div>
+        <p><strong style="color:var(--gold)">Argument clé :</strong></p>
+        <div class="pitch-box">"L'ESSEC forme des leaders qui façonnent les grandes entreprises. Moi j'en ai déjà façonné une petite — avec 750 clients et 150K€. Je viens pour apprendre à faire ça à l'échelle."</div>
+        <div class="divider"></div>
+        <p><strong style="color:var(--gold)">Taux d'admission SESAME :</strong> ~12% — le plus bas du concours.</p>
+      </div>
+    </div>
+
+    <div id="school-skema" style="display:none">
+      <div class="card">
+        <div class="card-title"><span class="icon">🏛️</span>SKEMA Business School — Global BBA</div>
+        <p><span class="tag tag-green">FAVORABLE</span> Ton profil dépasse largement leurs attentes.</p>
+        <div class="divider"></div>
+        <p><strong style="color:var(--gold)">Ce qu'ils valorisent :</strong></p>
+        <ul style="margin:10px 0 10px 20px">
+          <li>Dimension internationale (campus monde entier)</li>
+          <li>Profils ouverts avec expériences variées</li>
+          <li>Appétit pour le digital et l'innovation</li>
+          <li>Mobilité géographique acceptée</li>
+        </ul>
+        <div class="highlight">Avec SKEMA, mets en avant ton usage des outils digitaux (N8N, automatisation, Instagram) — ils valorisent la dimension tech.</div>
+        <div class="divider"></div>
+        <p><strong style="color:var(--gold)">Argument clé :</strong></p>
+        <div class="pitch-box">"Ma société tourne en grande partie grâce à l'automatisation — ManyChat, Instagram, outils no-code. J'ai compris très tôt que le digital n'est pas une option, c'est l'infrastructure. SKEMA et sa dimension internationale me donnent le cadre pour scaler ça."</div>
+      </div>
+    </div>
+
+    <div id="school-catho" style="display:none">
+      <div class="card">
+        <div class="card-title"><span class="icon">🏛️</span>Catho Lille — Gestion Finance (ACCÈS)</div>
+        <p><span class="tag tag-green">FAVORABLE</span> Profil largement suffisant, approche plus humaine.</p>
+        <div class="divider"></div>
+        <p><strong style="color:var(--gold)">Spécificités Catho Lille :</strong></p>
+        <ul style="margin:10px 0 10px 20px">
+          <li>Valeurs humanistes — engagement social important</li>
+          <li>Ton bénévolat Apprentis d'Auteuil est un vrai atout ici</li>
+          <li>Programme Finance/Gestion très technique</li>
+          <li>Jury sensible à la cohérence du projet pro</li>
+        </ul>
+        <div class="highlight">À la Catho, le bénévolat n'est pas un "plus" — c'est un critère de sélection à part entière. Parles-en avec conviction.</div>
+        <div class="divider"></div>
+        <p><strong style="color:var(--gold)">Argument clé :</strong></p>
+        <div class="pitch-box">"Mon engagement chez Apprentis d'Auteuil m'a confronté à une réalité que mes autres expériences ne montrent pas : des jeunes qui n'ont pas les mêmes points de départ que moi. Ça m'a convaincu que réussir sans contribuer, ça ne suffit pas. La Catho incarne cet équilibre."</div>
+        <div class="divider"></div>
+        <p><strong style="color:var(--gold)">Concours ACCÈS :</strong> Structure différente de SESAME, mais même logique de préparation pour les oraux.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="section" id="checklist">
+
+    <div class="card">
+      <div class="card-title"><span class="icon">✅</span>Ta Checklist Avant l'Oral</div>
+      <p>Coche chaque élément au fur et à mesure de ta préparation.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">📝</span>À Maîtriser par Cœur</div>
+      <div id="checklist1">
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Pitch de présentation 3 minutes (chronométré)</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Modèle économique conciergerie (CA, marge, clients/semaine)</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Réponse aux questions sur la légalité de la conciergerie</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Réponse sur les notes de maths — confiante et frontale</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Projet professionnel à 5 ans précis et chiffré</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">2 faits précis sur chaque école visée</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">3 actualités économiques récentes (inflation, IA, luxe)</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🎯</span>Simulations à Faire</div>
+      <div id="checklist2">
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">1 simulation complète filmée (30 min)</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Réécouter et corriger posture + débit</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Simulation avec quelqu'un qui joue le jury hostile</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Pratiquer les réponses aux 10 questions pièges</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Oral en anglais (30 min minimum)</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">📅</span>Le Jour J</div>
+      <div id="checklist3">
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Arriver 20 minutes en avance</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Tenue : costume/veste sobre, pas ostentatoire</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">CV imprimé en 3 exemplaires</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Relire le pitch une dernière fois le matin</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Éteindre le téléphone avant d'entrer</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="check-box"></div><div class="check-text">Serrer la main de chaque membre du jury en entrant</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    Guide préparé pour Paul Bouvet · Oraux SESAME / ACCÈS 2026 · Confidentiel
+  </footer>
+
+</div>
+
+<script>
+  // ── NAV ──
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // ── SCHOOL TABS ──
+  function showSchool(id, btn) {
+    ['emlyon','essec','skema','catho'].forEach(s => {
+      document.getElementById('school-' + s).style.display = 'none';
+    });
+    document.getElementById('school-' + id).style.display = 'block';
+    document.querySelectorAll('.school-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // ── CHECKLIST ──
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    const box = el.querySelector('.check-box');
+    box.textContent = el.classList.contains('checked') ? '✓' : '';
+  }
+
+  // ── QUESTIONS ──
+  const allQuestions = [
+    // MOTIVATION
+    { cat: 'MOTIVATION', q: "Pourquoi cette école en particulier ?", a: "Cite 2 faits précis sur l'école (programme, pédagogie, campus). Termine par : 'Votre approche correspond exactement à ma façon d'apprendre — par l'action, pas par la théorie seule.'" },
+    { cat: 'MOTIVATION', q: "Pourquoi le commerce plutôt qu'autre chose ?", a: "Le commerce, c'est ce que tu pratiques déjà. 750 clients, CA, négociation fournisseurs — tu fais du commerce depuis 2 ans. Tu viens apprendre les fondements théoriques de ce que tu vis déjà." },
+    { cat: 'MOTIVATION', q: "Où vous voyez-vous dans 5 ans ?", a: "Réponds précisément : développer la conciergerie sur 3 marchés européens, équipe de 5, partenariat palace. Pas de flou — les jurys adorent les projets concrets et chiffrés." },
+    { cat: 'MOTIVATION', q: "Pourquoi avez-vous choisi la spécialité Gestion/Finance ?", a: "Honnête et direct : 'Parce que c'est ce dont j'ai besoin pour structurer mon activité. J'ai appris la pratique seul — je veux maintenant les outils théoriques : comptabilité, analyse financière, gestion de trésorerie.'" },
+    { cat: 'MOTIVATION', q: "Qu'est-ce qui vous distingue des autres candidats ?", a: "Ne sois pas modeste ici. 'Je suis probablement le seul candidat aujourd'hui qui dirige une entreprise réelle avec un CA à 6 chiffres. Pas un projet scolaire — une société opérationnelle.' Dis-le calmement, pas arrogamment." },
+    { cat: 'MOTIVATION', q: "Pourquoi avez-vous choisi un BBA plutôt qu'une prépa ?", a: "'La prépa forme d'excellents exécutants. Le BBA forme des créateurs. J'ai déjà créé — je veux maintenant un environnement qui amplifie ça, pas qui le contraigne.'" },
+
+    // SOCIÉTÉ
+    { cat: 'SOCIÉTÉ', q: "Parlez-moi de votre société de conciergerie.", a: "Structure en 3 temps : 1) C'est quoi (service d'accès à des expériences premium) 2) Comment ça marche (réseau, marge sur service) 3) Les chiffres (750 clients, 150K€ CA). Sois naturel — c'est ton bébé." },
+    { cat: 'SOCIÉTÉ', q: "Comment trouvez-vous vos clients ?", a: "Instagram @kp.scalling100x, ManyChat automation, bouche à oreille. Montre que tu as un vrai funnel de prospection digitale — c'est sophistiqué pour quelqu'un de ton âge." },
+    { cat: 'SOCIÉTÉ', q: "Quel a été votre plus gros deal ?", a: "Prépare un exemple concret — le concert le plus cher, le client le plus exigeant, la situation la plus complexe. Les jurys adorent les anecdotes précises." },
+    { cat: 'SOCIÉTÉ', q: "Comment gérez-vous les annulations d'événements ?", a: "Politique de remboursement claire, anticipation des risques, clauses dans les conditions de service. Montre que tu as pensé au risque — c'est de la gestion." },
+    { cat: 'SOCIÉTÉ', q: "Avez-vous des associés ou travaillez-vous seul ?", a: "Si tu as Paul — mentionne-le comme partenaire commercial/créatif. Si seul : 'Pour l'instant je gère tout, mais ma prochaine étape est précisément de structurer une équipe — c'est l'une des raisons pour lesquelles je fais cette école.'" },
+    { cat: 'SOCIÉTÉ', q: "Quelles sont vos marges ?", a: "Sois précis : 'Variable selon l'événement — entre 15 et 40%. Sur les événements très rares, la valeur du réseau justifie une marge plus élevée. Ma marge nette annuelle tourne autour de X%.'" },
+    { cat: 'SOCIÉTÉ', q: "Comment vous êtes-vous formé au business sans formation ?", a: "Autodidacte, YouTube, podcasts, mais surtout l'expérience directe. 'Les meilleures leçons de business, je les ai prises dans les conflits clients, les fournisseurs qui ne livrent pas, les marges qui disparaissent. C'est une école parallèle.'" },
+    { cat: 'SOCIÉTÉ', q: "Est-ce que votre société est légale ?", a: "Réponse calme et directe : 'Je fournis un service de conciergerie et d'accès — pas une revente directe de billets. La valeur ajoutée c'est le réseau et le service. J'opère dans le respect du cadre légal applicable à ce secteur.'" },
+
+    // PARCOURS
+    { cat: 'PARCOURS', q: "Parlez-moi de votre stage au Trianon Palace.", a: "Insiste sur l'exigence Michelin : 'J'ai compris que le luxe n'est pas un standard — c'est une obsession du détail. Rien ne peut être à peu près. Ça a recalibré ce que j'appelle une bonne prestation dans ma propre société.'" },
+    { cat: 'PARCOURS', q: "Qu'avez-vous appris chez Kâ-Mondo ?", a: "'Le marché des biens rares fonctionne sur l'asymétrie d'information. Celui qui connaît la vraie valeur gagne. C'est exactement la logique de ma conciergerie : j'ai l'information sur l'accès rare, mes clients ne l'ont pas.'" },
+    { cat: 'PARCOURS', q: "Pourquoi le bénévolat chez Apprentis d'Auteuil ?", a: "'Parce que gérer une entreprise sans jamais confronter ta réalité à celle des autres, c'est dangereux. Ça m'a donné de la perspective. Et honnêtement, aider des jeunes à trouver leur voie, c'est plus satisfaisant que n'importe quel deal commercial.'" },
+    { cat: 'PARCOURS', q: "Qu'est-ce que l'équitation vous a appris ?", a: "'La rigueur et l'humilité. En CCE, si tu n'es pas préparé, ton cheval le sent avant toi. Tu ne peux pas tricher. Et perdre après des mois de préparation t'apprend que le résultat n'est pas toujours juste — mais la préparation, elle, l'est toujours.'" },
+    { cat: 'PARCOURS', q: "Comment gérez-vous votre temps entre les études et votre société ?", a: "'Par priorisation stricte. Certains trimestres, la société a pris plus de place — c'est visible sur certaines notes. Mais j'ai aussi appris à arbitrer, à déléguer certaines tâches, à créer des systèmes automatiques. C'est du management de ressources, appliqué à ma propre vie.'" },
+    { cat: 'PARCOURS', q: "Vos notes de maths en terminale sont faibles — comment l'expliquez-vous ?", a: "'Les maths spécialité au lycée demandent une méthodologie scolaire précise que je n'ai pas optimisée. Mes résultats au concours SESAME reflètent mieux mon niveau réel — le raisonnement logique et analytique, je l'applique tous les jours dans mon activité. Les deux chiffres ne mesurent pas la même chose.'" },
+
+    // FINANCE
+    { cat: 'FINANCE', q: "Qu'est-ce qu'une marge brute ?", a: "CA moins coût des ventes (COGS). Dans ta conciergerie : prix de vente moins le coût d'acquisition des billets/services. Simple mais crucial à maîtriser." },
+    { cat: 'FINANCE', q: "Quelle est la différence entre chiffre d'affaires et bénéfice ?", a: "CA = total des ventes. Bénéfice = CA moins toutes les charges (fixes + variables + impôts). Tu peux avoir un gros CA et perdre de l'argent si tes charges sont trop élevées." },
+    { cat: 'FINANCE', q: "C'est quoi le BFR ?", a: "Besoin en Fonds de Roulement — la trésorerie nécessaire pour financer le cycle d'exploitation entre le moment où tu paies tes fournisseurs et celui où tes clients te paient." },
+    { cat: 'FINANCE', q: "Quelle est la différence entre prix et valeur ?", a: "Le prix est fixé par le marché. La valeur est subjective — ce que le client est prêt à payer. Dans le luxe, la valeur perçue dépasse largement le coût réel. C'est exactement ton modèle économique." },
+    { cat: 'FINANCE', q: "Qu'est-ce qu'un business plan ?", a: "Document qui projette l'activité sur 3-5 ans : modèle économique, prévisions de CA et coûts, plan de financement, analyse de marché. Dis que tu en as un pour ta société (même simplifié)." },
+    { cat: 'FINANCE', q: "Qu'est-ce que l'inflation et comment ça impact votre secteur ?", a: "Hausse généralisée des prix. Dans le luxe et les événements, l'inflation pousse les prix vers le haut — ce qui augmente mécaniquement ton CA si tu opères en % de commission. En revanche, le pouvoir d'achat de certains clients peut diminuer." },
+    { cat: 'FINANCE', q: "Qu'est-ce que la valeur ajoutée ?", a: "Ce que l'entreprise crée au-delà de ce qu'elle achète. Dans ta conciergerie : tu achètes un accès à un événement, tu y ajoutes le service, le réseau, la tranquillité d'esprit — c'est ta valeur ajoutée." },
+
+    // PIÈGES
+    { cat: 'PIÈGES', q: "Vos absences en première étaient nombreuses — pourquoi ?", a: "Honnête : 'Mon activité prenait beaucoup de temps en 2024-2025. J'ai arbitré, parfois au détriment de l'assiduité scolaire. En terminale, j'ai réequilibré — c'est visible sur les appréciations.' Ne mens pas, mais montre que tu as appris." },
+    { cat: 'PIÈGES', q: "Vous déclarez vos revenus de la conciergerie ?", a: "Question piège sensible. Réponse posée : 'Mon activité est structurée en société. Je gère la dimension fiscale et administrative comme toute entreprise est censée le faire.' Ne rentre pas dans les détails, mais ne fuis pas la question." },
+    { cat: 'PIÈGES', q: "Pourquoi devrions-nous vous prendre plutôt qu'un autre candidat avec 16 de moyenne ?", a: "'Parce que les notes mesurent la capacité à apprendre dans un cadre. Moi je suis venu avec quelque chose de différent : la preuve que j'agis. 750 clients ne s'inventent pas dans un examen blanc.' Calme, sans arrogance." },
+    { cat: 'PIÈGES', q: "Avez-vous un plan B si vous n'intégrez pas l'école ?", a: "Ne jamais dire 'non je n'ai pas de plan B'. Dis : 'Ma société continue quoi qu'il arrive. Mais cette formation est un accélérateur — sans elle, j'irai moins vite et moins loin. C'est pour ça que je suis là.'" },
+    { cat: 'PIÈGES', q: "Votre anglais est seulement 'courant' — comment allez-vous gérer un programme international ?", a: "'Courant pour décrire un niveau au lycée, c'est modeste. Je gère quotidiennement des clients anglophones dans ma société et j'ai suivi des contenus business en anglais pendant des mois. Je suis opérationnel — je n'ai pas le certificat, mais j'ai la pratique.'" },
+    { cat: 'PIÈGES', q: "Votre projet vous semble-t-il réaliste ?", a: "Avec conviction : 'Il est déjà en cours. 150K€ de CA à 17 ans, c'est un début. La question n'est pas si c'est réaliste — c'est déjà réel. La question c'est comment le scaler intelligemment.'" },
+
+    // ACTU
+    { cat: 'ACTUALITÉ', q: "Quel sujet économique vous a marqué ces derniers mois ?", a: "Prépare 2-3 sujets : l'IA et l'emploi, la hausse des taux, le retour du luxe chinois, la crise du logement. Choisis celui que tu connais le mieux et relie-le à ton secteur." },
+    { cat: 'ACTUALITÉ', q: "Comment voyez-vous l'avenir du marché du luxe ?", a: "Secteur résilient mais en mutation : montée du luxe expérientiel (concerts, art, gastronomie) par rapport au luxe produit. Ta conciergerie est dans la tendance. Les millennials et Gen Z valorisent les expériences plus que les objets." },
+    { cat: 'ACTUALITÉ', q: "Que pensez-vous de l'impact de l'IA sur le commerce ?", a: "L'IA automatise les tâches répétitives mais ne remplace pas la relation humaine dans le haut de gamme. Ta société en bénéficie déjà (automation ManyChat, etc.) sans perdre l'aspect humain qui fait la valeur." },
+    { cat: 'ACTUALITÉ', q: "Quelle startup ou entrepreneur vous inspire ?", a: "Cite quelqu'un que tu as vraiment suivi — Grant Cardone (ambition, scale), Yomi Denzel (entrepreneur digital), ou une figure du luxe. Explique pourquoi précisément, pas juste 'parce qu'il a réussi'." },
+    { cat: 'ACTUALITÉ', q: "Selon vous, quels sont les défis du commerce en France aujourd'hui ?", a: "Charges élevées, complexité administrative, concurrence des plateformes digitales, transformation post-Covid des comportements d'achat. Relie à ton expérience entrepreneuriale directe." },
+  ];
+
+  let currentFilter = 'all';
+  let filteredQuestions = [...allQuestions];
+  let currentIndex = 0;
+  let seenCount = 0;
+
+  function filterQuestions(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+
+    if (filter === 'all') filteredQuestions = [...allQuestions];
+    else {
+      const map = {
+        'motivation': 'MOTIVATION',
+        'societe': 'SOCIÉTÉ',
+        'parcours': 'PARCOURS',
+        'finance': 'FINANCE',
+        'pieges': 'PIÈGES',
+        'actu': 'ACTUALITÉ'
+      };
+      filteredQuestions = allQuestions.filter(q => q.cat === map[filter]);
+    }
+
+    currentIndex = 0;
+    seenCount = 0;
+    showQuestion();
+  }
+
+  function showQuestion() {
+    const q = filteredQuestions[currentIndex];
+    document.getElementById('q-cat').textContent = q.cat;
+    document.getElementById('q-text').textContent = '"' + q.q + '"';
+    document.getElementById('q-answer').classList.remove('visible');
+    document.getElementById('q-answer-text').textContent = q.a;
+    document.getElementById('q-current').textContent = currentIndex + 1;
+    document.getElementById('q-total').textContent = filteredQuestions.length;
+    document.getElementById('q-seen').textContent = seenCount;
+    document.getElementById('q-counter').textContent = 'Question ' + (currentIndex + 1) + ' / ' + filteredQuestions.length;
+    const progress = ((currentIndex + 1) / filteredQuestions.length) * 100;
+    document.getElementById('q-progress').style.width = progress + '%';
+  }
+
+  function showAnswer() {
+    document.getElementById('q-answer').classList.add('visible');
+  }
+
+  function nextQuestion() {
+    seenCount = Math.max(seenCount, currentIndex + 1);
+    currentIndex = (currentIndex + 1) % filteredQuestions.length;
+    showQuestion();
+  }
+
+  // Init
+  showQuestion();
+</script>
+</body>
+</html>
